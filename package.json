@@ -1,0 +1,19 @@
+{
+  "name": "kokusai-kakeibo",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "all": "npm run build && npm run start"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.2.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
