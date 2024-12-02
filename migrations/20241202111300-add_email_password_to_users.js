@@ -6,6 +6,7 @@ module.exports = {
     await queryInterface.addColumn("users", "email", {
       allowNull: false,
       type: Sequelize.STRING,
+      unique: true,
       after: "id"
     });
     await queryInterface.addColumn("users", "password", {
