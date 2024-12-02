@@ -1,5 +1,6 @@
 import { sequelize, models } from "./models";
 import * as http from 'http';
+import * as bcrypt from "bcrypt";
 
 const startApp = async () => {
   try {
@@ -7,14 +8,19 @@ const startApp = async () => {
 
     // test
     // サンプルデータの追加
-    const user = await models.User.findAll({
-      include: [
-        { model: models.Kakeibo }
-      ],
-      limit: 1
-    });
+    const user = await models.User.findByPk(1);
     if (user) {
-      console.log("User found:", user);
+      // console.log("User found:", user);
+
+      // パスワード設定
+      // const password = "test";
+      // const saltRounds = 10;
+      // const hash = await bcrypt.hash(password, saltRounds);
+      // await user.update({password: hash});
+
+      // パスワード認証
+      const isMatch = await bcrypt.compare("test", user.password);
+      console.log("isMatch", isMatch);
     }
 
     const PORT: number = 3000;

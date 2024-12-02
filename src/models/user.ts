@@ -4,6 +4,8 @@ import Kakeibo from "./kakeibo";
 // Userモデルのインターフェースを定義
 interface UserAttributes {
   id: number;
+  email: string;
+  password: string;
   kakeibo_id: number;
   created_at: Date;
   updated_at: Date;
@@ -14,6 +16,8 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export default class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;
+  email!: string;
+  password!: string;
   public kakeibo_id!: number;
   public created_at!: Date;
   public updated_at!: Date;
@@ -26,6 +30,14 @@ export default class User extends Model<UserAttributes, UserCreationAttributes> 
           type: DataTypes.INTEGER.UNSIGNED,
           autoIncrement: true,
           primaryKey: true,
+        },
+        email: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        password: {
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         kakeibo_id: {
           type: DataTypes.INTEGER,
