@@ -7,9 +7,14 @@ const startApp = async () => {
 
     // test
     // サンプルデータの追加
-    const user = await models.User.findOne({});
+    const user = await models.User.findAll({
+      include: [
+        { model: models.Kakeibo }
+      ],
+      limit: 1
+    });
     if (user) {
-      console.log("User found:", user.toJSON());
+      console.log("User found:", user);
     }
 
     const PORT: number = 3000;

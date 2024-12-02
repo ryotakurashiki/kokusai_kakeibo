@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import User from "./user";
+import Kakeibo from "./kakeibo";
 const env = process.env.NODE_ENV || 'development';
 const db_config = require(__dirname + '/../../config/database.js')[env];
 
@@ -25,8 +26,14 @@ const sequelize = new Sequelize(db_config.database, db_config.username, db_confi
 
 const models = {
     User: User,
+    Kakeibo: Kakeibo
 };
 
 User.initModel(sequelize);
+Kakeibo.initModel(sequelize);
+
+User.associate();
+Kakeibo.associate();
+
 
 export { sequelize, models };
