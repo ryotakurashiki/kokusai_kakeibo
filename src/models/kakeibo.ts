@@ -7,13 +7,13 @@ interface KakeiboAttributes {
   updated_at: Date;
 }
 
-interface KakeiboCreationAttributes extends Optional<KakeiboAttributes, 'id'> {}
+interface KakeiboCreationAttributes extends Optional<KakeiboAttributes, 'id' | 'created_at' | 'updated_at'> {}
 
 export default class Kakeibo extends Model<KakeiboAttributes, KakeiboCreationAttributes> implements KakeiboAttributes {
   public id!: number;
   public kakeibo_id!: number;
-  public created_at!: Date;
-  public updated_at!: Date;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
 
   static initModel(sequelize: Sequelize): void {
     Kakeibo.init(

@@ -9,12 +9,29 @@ router.get("/", (req, res) => {
   res.redirect("/sign_up");
 });
 
+router.get("/home", (req, res) => {
+  res.send("<h1>Home Page</h1>");
+});
+
 router.get("/sign_up", (req, res) => {
   res.render('sign_up');
 });
 
-router.get("/home", (req, res) => {
-  res.send("<h1>Home Page</h1>");
+router.post("/sign_up", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await models.User.findOne({ where: {email: email} });
+  if (user) {
+    return res.status(200).send("This email is already registered.");
+  }
+  const kakeibo = await models.Kakeibo.create();
+  const salt_rounds = 10;
+  const hash = await bcrypt.hash(password, salt_rounds);
+  await models.User.create({ email: email, password: hash, kakeibo_id: kakeibo.id });
+  res.redirect("/home");
+});
+
+router.get("/login", (req, res) => {
+  res.render('login');
 });
 
 router.post("/login", async (req, res) => {

@@ -11,16 +11,15 @@ interface UserAttributes {
   updated_at: Date;
 }
 
-// モデルインスタンスの型（`id`, `created_at`, `updated_at` は必須）
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'created_at' | 'updated_at'> {}
 
 export default class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;
   email!: string;
   password!: string;
   public kakeibo_id!: number;
-  public created_at!: Date;
-  public updated_at!: Date;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
 
   // `initModel` メソッドを定義
   static initModel(sequelize: Sequelize): void {
