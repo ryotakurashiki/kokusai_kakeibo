@@ -1,11 +1,23 @@
 import { sequelize } from "./models";
-import { router } from "./router";
+import { router } from "./routes/router";
 import * as consolidate from "consolidate";
 import * as express from "express";
 import * as path from "path";
+import * as session from "express-session";
 
 const app = express();
 const PORT: number = 3000;
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET as string,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  })
+);
 
 // ビューテンプレートエンジンの設定
 app.engine("slm", consolidate.slm);

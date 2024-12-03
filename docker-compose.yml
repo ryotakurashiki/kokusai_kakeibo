@@ -17,6 +17,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=password
       - DB_NAME=kokusai_kakeibo_dev
+      - SESSION_SECRET=aaaa
   db:
     image: mysql:8.0
     ports:

@@ -1,16 +1,17 @@
-import { models } from "./models";
+import { models } from "../models";
+import { login_auth_handler } from './middlewares';
 import * as express from 'express';
 import * as bcrypt from "bcrypt";
 
 export const router = express.Router();
 
 // ルーティング
-router.get("/", (req, res) => {
-  res.redirect("/sign_up");
+router.get("/", login_auth_handler(), (req, res) => {
+  res.redirect("/home");
 });
 
-router.get("/home", (req, res) => {
-  res.send("<h1>Home Page</h1>");
+router.get("/home", login_auth_handler(), (req, res) => {
+  res.send("<h1>Home Page</h1>" + req.session.user_id);
 });
 
 router.get("/sign_up", (req, res) => {
@@ -19,15 +20,16 @@ router.get("/sign_up", (req, res) => {
 
 router.post("/sign_up", async (req, res) => {
   const { email, password } = req.body;
-  const user = await models.User.findOne({ where: {email: email} });
+  let user = await models.User.findOne({ where: {email: email} });
   if (user) {
     return res.status(200).send("This email is already registered.");
   }
   const kakeibo = await models.Kakeibo.create();
   const salt_rounds = 10;
   const hash = await bcrypt.hash(password, salt_rounds);
-  await models.User.create({ email: email, password: hash, kakeibo_id: kakeibo.id });
-  res.redirect("/home");
+  user = await models.User.create({ email: email, password: hash, kakeibo_id: kakeibo.id });
+  req.session.user_id = user.id;
+  return res.redirect("/home");
 });
 
 router.get("/login", (req, res) => {
@@ -47,7 +49,8 @@ router.post("/login", async (req, res) => {
     // パスワード認証
     const is_match = await bcrypt.compare(password, user.password);
     if (is_match) {
-      return res.status(200).send("Login successful!");
+      req.session.user_id = user.id;
+      return res.redirect("/home");
     }
   }
 
