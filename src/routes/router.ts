@@ -2,6 +2,7 @@ import { models } from "../models";
 import { login_auth_handler } from './middlewares';
 import * as express from 'express';
 import * as bcrypt from "bcrypt";
+import * as path from "path";
 
 export const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get("/", login_auth_handler(), (req, res) => {
 });
 
 router.get("/home", login_auth_handler(), (req, res) => {
-  res.send("<h1>Home Page</h1>" + req.session.user_id);
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 router.get("/sign_up", (req, res) => {

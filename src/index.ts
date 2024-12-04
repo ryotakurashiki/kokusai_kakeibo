@@ -27,6 +27,7 @@ app.set("view engine", "slm");
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use('/', router);
 
 const startApp = async () => {

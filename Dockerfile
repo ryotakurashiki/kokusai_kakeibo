@@ -11,7 +11,15 @@ COPY package*.json ./
 # 依存関係をインストール
 RUN npm install
 
-# アプリケーションコードをコピー
+# フロントエンドのビルド
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend ./
+RUN npm run build
+
+# メインアプリケーションのセットアップ
+WORKDIR /app
 COPY . .
 
 # サーバーを起動
