@@ -1,29 +1,35 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
-import MiddleCategory from "./middle_category";
+import LargeCategory from "./large_category";
 
-interface LargeCategoryAttributes {
+interface MiddleCategoryAttributes {
   id: number;
+  large_category_id: number;
   name: string;
   created_at: Date;
   updated_at: Date;
 }
 
-interface LargeCategoryCreationAttributes extends Optional<LargeCategoryAttributes, 'id' | 'created_at' | 'updated_at'> {}
+interface MiddleCategoryCreationAttributes extends Optional<MiddleCategoryAttributes, 'id' | 'created_at' | 'updated_at'> {}
 
-export default class LargeCategory extends Model<LargeCategoryAttributes, LargeCategoryCreationAttributes> implements LargeCategoryAttributes {
+export default class MiddleCategory extends Model<MiddleCategoryAttributes, MiddleCategoryCreationAttributes> implements MiddleCategoryAttributes {
   public id!: number;
+  public large_category_id!: number;
   public name!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 
   // `initModel` メソッドを定義
   static initModel(sequelize: Sequelize): void {
-    LargeCategory.init(
+    MiddleCategory.init(
       {
         id: {
           type: DataTypes.INTEGER.UNSIGNED,
           autoIncrement: true,
           primaryKey: true,
+        },
+        large_category_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
         },
         name: {
           type: DataTypes.STRING,
@@ -40,8 +46,8 @@ export default class LargeCategory extends Model<LargeCategoryAttributes, LargeC
       },
       {
         sequelize,
-        modelName: "LargeCategory",
-        tableName: "large_categories",
+        modelName: "MiddleCategory",
+        tableName: "middle_categories",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
@@ -50,6 +56,6 @@ export default class LargeCategory extends Model<LargeCategoryAttributes, LargeC
   }
 
   static associate() {
-    LargeCategory.hasMany(MiddleCategory);
+    MiddleCategory.belongsTo(LargeCategory);
   }
 }
