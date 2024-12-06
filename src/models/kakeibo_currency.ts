@@ -1,38 +1,39 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
-import KakeiboCurrency from "./kakeibo_currency";
+import Kakeibo from "./kakeibo";
+import Currency from "./currency";
 
-interface CurrencyAttributes {
+interface KakeiboCurrencyAttributes {
   id: number;
-  name: string;
-  symbol: string;
+  kakeibo_id: number;
+  currency_id: number;
   created_at: Date;
   updated_at: Date;
 }
 
-interface CurrencyCreationAttributes extends Optional<CurrencyAttributes, 'id' | 'created_at' | 'updated_at'> {}
+interface KakeiboCurrencyCreationAttributes extends Optional<KakeiboCurrencyAttributes, 'id' | 'created_at' | 'updated_at'> {}
 
-export default class Currency extends Model<CurrencyAttributes, CurrencyCreationAttributes> implements CurrencyAttributes {
+export default class KakeiboCurrency extends Model<KakeiboCurrencyAttributes, KakeiboCurrencyCreationAttributes> implements KakeiboCurrencyAttributes {
   public id!: number;
-  public name!: string;
-  public symbol!: string;
+  public kakeibo_id!: number;
+  public currency_id!: number;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 
   // `initModel` メソッドを定義
   static initModel(sequelize: Sequelize): void {
-    Currency.init(
+    KakeiboCurrency.init(
       {
         id: {
           type: DataTypes.INTEGER.UNSIGNED,
           autoIncrement: true,
           primaryKey: true,
         },
-        name: {
-          type: DataTypes.STRING,
+        kakeibo_id: {
+          type: DataTypes.INTEGER,
           allowNull: false,
         },
-        symbol: {
-          type: DataTypes.STRING,
+        currency_id: {
+          type: DataTypes.INTEGER,
           allowNull: false,
         },
         created_at: {
@@ -46,8 +47,8 @@ export default class Currency extends Model<CurrencyAttributes, CurrencyCreation
       },
       {
         sequelize,
-        modelName: "Currency",
-        tableName: "currencies",
+        modelName: "KakeiboCurrency",
+        tableName: "kakeibo_currencies",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
@@ -56,6 +57,7 @@ export default class Currency extends Model<CurrencyAttributes, CurrencyCreation
   }
 
   static associate() {
-    Currency.hasMany(KakeiboCurrency);
+    KakeiboCurrency.belongsTo(Kakeibo);
+    KakeiboCurrency.belongsTo(Currency);
   }
 }
