@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import LargeCategory from "./large_category";
+import Expense from "./expense";
 
 interface MiddleCategoryAttributes {
   id: number;
@@ -57,5 +58,6 @@ export default class MiddleCategory extends Model<MiddleCategoryAttributes, Midd
 
   static associate() {
     MiddleCategory.belongsTo(LargeCategory);
+    MiddleCategory.hasMany(Expense);
   }
 }

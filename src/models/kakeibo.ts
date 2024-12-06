@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import User from "./user";
 import KakeiboCurrency from "./kakeibo_currency";
+import Expense from "./expense";
 
 interface KakeiboAttributes {
   id: number;
@@ -47,5 +48,6 @@ export default class Kakeibo extends Model<KakeiboAttributes, KakeiboCreationAtt
   static associate() {
     Kakeibo.hasMany(User);
     Kakeibo.hasMany(KakeiboCurrency);
+    Kakeibo.hasMany(Expense);
   }
 }
