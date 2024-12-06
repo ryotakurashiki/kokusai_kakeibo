@@ -47,7 +47,7 @@ export default class Currency extends Model<CurrencyAttributes, CurrencyCreation
       },
       {
         sequelize,
-        modelName: "Currency",
+        modelName: "currency",
         tableName: "currencies",
         timestamps: true,
         createdAt: "created_at",

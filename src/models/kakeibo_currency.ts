@@ -47,7 +47,7 @@ export default class KakeiboCurrency extends Model<KakeiboCurrencyAttributes, Ka
       },
       {
         sequelize,
-        modelName: "KakeiboCurrency",
+        modelName: "kakeibo_currency",
         tableName: "kakeibo_currencies",
         timestamps: true,
         createdAt: "created_at",

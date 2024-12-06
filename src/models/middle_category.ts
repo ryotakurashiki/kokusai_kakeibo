@@ -47,7 +47,7 @@ export default class MiddleCategory extends Model<MiddleCategoryAttributes, Midd
       },
       {
         sequelize,
-        modelName: "MiddleCategory",
+        modelName: "middle_category",
         tableName: "middle_categories",
         timestamps: true,
         createdAt: "created_at",

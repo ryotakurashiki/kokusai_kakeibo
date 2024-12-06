@@ -40,7 +40,7 @@ export default class LargeCategory extends Model<LargeCategoryAttributes, LargeC
       },
       {
         sequelize,
-        modelName: "LargeCategory",
+        modelName: "large_category",
         tableName: "large_categories",
         timestamps: true,
         createdAt: "created_at",

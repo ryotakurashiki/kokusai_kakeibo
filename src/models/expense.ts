@@ -70,7 +70,7 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
       },
       {
         sequelize,
-        modelName: "Expense",
+        modelName: "expense",
         tableName: "expenses",
         timestamps: true,
         createdAt: "created_at",
@@ -78,6 +78,9 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
         scopes: {
           with_currency() {
             return { include: [Currency] };
+          },
+          with_category() {
+            return { include: [MiddleCategory] };
           },
         },
       },

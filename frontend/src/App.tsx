@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import type { ResponseHomeData } from '../../api_types/home_data';
+import ExpenseList from './components/ExpenseList/ExpenseList';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,12 +16,6 @@ function App() {
       .then((data: ResponseHomeData) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
-  const listItems = data?.expenses?.map(expense =>
-    <li key={expense.id}>
-      {expense.name}
-    </li>
-  );
 
   const handleClick = () => {
     alert("Button clicked!");
@@ -38,7 +33,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <h2>{ data ? data.kakeibo?.id : "dataなし" }</h2>
-      <ul>{listItems}</ul>
+      <ExpenseList expenses={data?.expenses || []} />
       <div className="card">
         <Test label="Click Me" onClick={handleClick} />
         <button onClick={() => setCount((count) => count + 1)}>

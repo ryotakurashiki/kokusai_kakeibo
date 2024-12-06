@@ -53,7 +53,7 @@ export default class User extends Model<UserAttributes, UserCreationAttributes> 
       },
       {
         sequelize, // Sequelizeインスタンスを渡す
-        modelName: "User",
+        modelName: "user",
         tableName: "users",
         timestamps: true, // createdAt, updatedAtを有効にする
         createdAt: "created_at",
