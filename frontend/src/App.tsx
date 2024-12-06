@@ -1,10 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Test from "./components/Test";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import type { ResponseHomeData } from '../../api_types/home_data';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [data, setData] = useState<ResponseHomeData | null>(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/home_data")
+      .then((response) => response.json())
+      .then((data: ResponseHomeData) => setData(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const listItems = data?.expenses?.map(expense =>
+    <li key={expense.id}>
+      {expense.name}
+    </li>
+  );
+
+  const handleClick = () => {
+    alert("Button clicked!");
+  };
 
   return (
     <>
@@ -17,7 +37,10 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h2>{ data ? data.kakeibo?.id : "dataなし" }</h2>
+      <ul>{listItems}</ul>
       <div className="card">
+        <Test label="Click Me" onClick={handleClick} />
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>

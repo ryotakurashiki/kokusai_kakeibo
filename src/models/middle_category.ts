@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import LargeCategory from "./large_category";
 import Expense from "./expense";
 
-interface MiddleCategoryAttributes {
+export interface MiddleCategoryAttributes {
   id: number;
   large_category_id: number;
   name: string;

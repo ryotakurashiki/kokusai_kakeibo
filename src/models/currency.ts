@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import KakeiboCurrency from "./kakeibo_currency";
 import Expense from "./expense";
 
-interface CurrencyAttributes {
+export interface CurrencyAttributes {
   id: number;
   name: string;
   symbol: string;

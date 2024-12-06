@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import MiddleCategory from "./middle_category";
 
-interface LargeCategoryAttributes {
+export interface LargeCategoryAttributes {
   id: number;
   name: string;
   created_at: Date;

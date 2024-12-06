@@ -3,12 +3,12 @@ import Kakeibo from "./kakeibo";
 import MiddleCategory from "./middle_category";
 import Currency from "./currency";
 
-interface ExpenseAttributes {
+export interface ExpenseAttributes {
   id: number;
   kakeibo_id: number;
   middle_category_id: number;
   currency_id: number;
-  name: string;
+  name: string | null;
   amount: number;
   payment_date: Date;
   created_at: Date;
@@ -71,11 +71,17 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
       {
         sequelize,
         modelName: "Expense",
-        tableName: "Expenses",
+        tableName: "expenses",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
-      }
+        scopes: {
+          with_currency() {
+            return { include: [Currency] };
+          },
+        },
+      },
+
     );
   }
 

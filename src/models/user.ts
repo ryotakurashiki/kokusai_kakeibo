@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 import Kakeibo from "./kakeibo";
 
 // Userモデルのインターフェースを定義
-interface UserAttributes {
+export interface UserAttributes {
   id: number;
   email: string;
   password: string;

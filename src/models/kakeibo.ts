@@ -3,7 +3,7 @@ import User from "./user";
 import KakeiboCurrency from "./kakeibo_currency";
 import Expense from "./expense";
 
-interface KakeiboAttributes {
+export interface KakeiboAttributes {
   id: number;
   created_at: Date;
   updated_at: Date;
@@ -49,5 +49,15 @@ export default class Kakeibo extends Model<KakeiboAttributes, KakeiboCreationAtt
     Kakeibo.hasMany(User);
     Kakeibo.hasMany(KakeiboCurrency);
     Kakeibo.hasMany(Expense);
+  }
+
+  static async find_by_user_id(user_id: number): Promise<Kakeibo | null> {
+    return await Kakeibo.findOne({
+      include: [{
+        model: User,
+        where: { id: user_id },
+        required: true
+      }]
+    });
   }
 }

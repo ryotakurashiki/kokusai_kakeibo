@@ -23,3 +23,21 @@ export function login_auth_handler(): express.RequestHandler {
     next();
   };
 }
+
+/**
+ * API認証
+ */
+export function api_auth_handler(): express.RequestHandler {
+  return async (req, res, next) => {
+    try {
+      // Cookie認証
+      if (req.session.user_id) {
+        return next();
+      }
+    } catch (e) {
+      console.log("API認証失敗")
+    }
+
+    res.sendStatus(400);
+  };
+}
