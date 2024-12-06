@@ -1,5 +1,5 @@
 import { sequelize } from "./models";
-import { router } from "./routes/router";
+import { router } from "./router";
 import * as consolidate from "consolidate";
 import * as express from "express";
 import * as path from "path";
