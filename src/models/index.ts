@@ -6,6 +6,7 @@ import LargeCategory from "./large_category";
 import MiddleCategory from "./middle_category";
 import KakeiboCurrency from "./kakeibo_currency";
 import Expense from "./expense";
+import Budget from "./budget";
 const env = process.env.NODE_ENV || 'development';
 const db_config = require(__dirname + '/../../config/database.js')[env];
 
@@ -37,6 +38,7 @@ const models = {
     MiddleCategory,
     KakeiboCurrency,
     Expense,
+    Budget,
 };
 
 User.initModel(sequelize);
@@ -46,6 +48,7 @@ LargeCategory.initModel(sequelize);
 MiddleCategory.initModel(sequelize);
 KakeiboCurrency.initModel(sequelize);
 Expense.initModel(sequelize);
+Budget.initModel(sequelize);
 
 User.associate();
 Kakeibo.associate();
@@ -54,5 +57,6 @@ LargeCategory.associate();
 MiddleCategory.associate();
 KakeiboCurrency.associate();
 Expense.associate();
+Budget.associate();
 
 export { sequelize, models };
