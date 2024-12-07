@@ -21,6 +21,16 @@ function App() {
     alert("Button clicked!");
   };
 
+  const bugetsResultItems = (data?.budget_with_results || []).map(budget_with_result => {
+    return (
+      <div key={budget_with_result.budget_id}>
+        <div>{ budget_with_result.large_category_name }</div>
+        <div>予算{ budget_with_result.currency_symbol }{ budget_with_result.budget_amount }</div>
+        <div>実績{ budget_with_result.currency_symbol }{ budget_with_result.expense_total_amount }</div>
+      </div>
+    )
+  });
+
   return (
     <>
       <div>
@@ -32,7 +42,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <h2>{ data ? data.kakeibo?.id : "dataなし" }</h2>
+      <h2>予算状況</h2>
+      <div>{bugetsResultItems}</div>
+      <h2>最近の支出</h2>
       <ExpenseList expenses={data?.expenses || []} />
       <div className="card">
         <Test label="Click Me" onClick={handleClick} />

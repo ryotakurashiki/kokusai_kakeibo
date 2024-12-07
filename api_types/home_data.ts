@@ -1,6 +1,7 @@
 import { CurrencyAttributes } from '../src/models/currency';
 import type { ExpenseAttributes } from '../src/models/expense';
 import type { KakeiboAttributes } from '../src/models/kakeibo';
+import type { BudgetWithResult } from '../src/models/budget';
 import { MiddleCategoryAttributes } from '../src/models/middle_category';
 
 export type ResponseHomeData = null | {
@@ -8,5 +9,6 @@ export type ResponseHomeData = null | {
     currency: CurrencyAttributes,
     middle_category: MiddleCategoryAttributes
   })[]
-  kakeibo: KakeiboAttributes
+  kakeibo: KakeiboAttributes,
+  budget_with_results: BudgetWithResult[]
 }
