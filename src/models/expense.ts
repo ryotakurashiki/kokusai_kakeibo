@@ -1,7 +1,8 @@
-import { DataTypes, Model, Sequelize, Optional } from "sequelize";
+import { DataTypes, Model, Sequelize, Optional, Op } from "sequelize";
 import Kakeibo from "./kakeibo";
 import MiddleCategory from "./middle_category";
 import Currency from "./currency";
+import { start_of_last_month } from "../common/date";
 
 export interface ExpenseAttributes {
   id: number;
@@ -82,6 +83,21 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
           with_category() {
             return { include: [MiddleCategory] };
           },
+          order_newly_paid() {
+            return {
+              order: [
+                ['payment_date', 'DESC'],
+                ['id', 'DESC']
+              ]
+            };
+          },
+          recent() {
+            return {
+              where: {
+                payment_date: { [Op.gte]: start_of_last_month() }
+              }
+            };
+          }
         },
       },
 
