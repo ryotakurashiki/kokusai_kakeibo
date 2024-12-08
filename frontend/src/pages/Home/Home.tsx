@@ -36,6 +36,7 @@ function Home() {
   return (
     <>
       <h1>Vite + React</h1>
+      <Link to="/summary">集計</Link>
       <Link to="/expense_registration">登録</Link>
       <h2>予算状況</h2>
       <div>{bugetsResultItems}</div>

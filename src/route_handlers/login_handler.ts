@@ -28,6 +28,12 @@ export function expense_registration_handler(): express.RequestHandler {
   };
 }
 
+export function summary_handler(): express.RequestHandler {
+  return (req, res) => {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+  };
+}
+
 /*
  * 登録画面
 */
