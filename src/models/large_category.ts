@@ -45,6 +45,11 @@ export default class LargeCategory extends Model<LargeCategoryAttributes, LargeC
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
+        scopes: {
+          with_middle_category() {
+            return { include: [MiddleCategory] };
+          },
+        },
       }
     );
   }
