@@ -3,6 +3,7 @@ import './Home.module.css'
 import type { ResponseHomeData } from '../../../../api_types/home_data';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import { current_days, this_month_days } from '../../functions/date';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [count, setCount] = useState(0)
@@ -35,6 +36,7 @@ function Home() {
   return (
     <>
       <h1>Vite + React</h1>
+      <Link to="/expense_registration">登録</Link>
       <h2>予算状況</h2>
       <div>{bugetsResultItems}</div>
       <h2>最近の支出</h2>

@@ -22,6 +22,12 @@ export function home_handler(): express.RequestHandler {
   };
 }
 
+export function expense_registration_handler(): express.RequestHandler {
+  return (req, res) => {
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+  };
+}
+
 /*
  * 登録画面
 */
@@ -43,6 +49,7 @@ export function sign_up_handler(): express.RequestHandler {
     const password_hash = await hash(password, salt_rounds);
     user = await models.User.create({ email: email, password: password_hash, kakeibo_id: kakeibo.id });
     req.session.user_id = user.id;
+    req.session.kakeibo_id = kakeibo.id;
     return res.redirect("/home");
   });
 }
@@ -73,6 +80,7 @@ export function login_handler(): express.RequestHandler {
       const is_match = await compare(password, user.password);
       if (is_match) {
         req.session.user_id = user.id;
+        req.session.kakeibo_id = user.kakeibo_id;
         return res.redirect("/home");
       }
     }

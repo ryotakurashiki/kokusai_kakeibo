@@ -3,6 +3,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
+import ExpenseRegistration from './pages/ExpenseRegistration/ExpenseRegistration'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/expense_registration" element={<ExpenseRegistration />} />
       </Routes>
     </>
   )
