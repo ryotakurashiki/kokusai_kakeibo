@@ -12,3 +12,10 @@ export function this_month_days(): number {
   return Number(dayjs().endOf('month').format("D"));
 }
 
+export function current_year(): number {
+  return dayjs().year();
+}
+
+export function current_month(): number {
+  return dayjs().month();
+}

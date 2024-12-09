@@ -91,6 +91,14 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
               ]
             };
           },
+          order_early_paid() {
+            return {
+              order: [
+                ['payment_date', 'ASC'],
+                ['id', 'ASC']
+              ]
+            };
+          },
           recent() {
             return {
               where: {
