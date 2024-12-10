@@ -3,6 +3,10 @@ import './Home.module.css'
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import { current_days, this_month_days } from '../../functions/date';
 import { Link } from 'react-router-dom';
+import * as adapter from '../../api/adapter';
+import { ExpenseAttributes } from '../../../../src/models/expense';
+import { CurrencyAttributes } from '../../../../src/models/currency';
+import { MiddleCategoryAttributes } from '../../../../src/models/middle_category';
 
 interface budgetWithResult {
   budget_id: number,
@@ -14,7 +18,7 @@ interface budgetWithResult {
 
 function Home() {
   const [count, setCount] = useState(0);
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState<(ExpenseAttributes & { currency: CurrencyAttributes, middle_category: MiddleCategoryAttributes })[]>([]);
   const [budgetWithResults, setBudgetWithResults] = useState<budgetWithResult[]>([]);
 
   useEffect(() => {
@@ -23,10 +27,9 @@ function Home() {
       .then((data) => setBudgetWithResults(data.budget_with_results))
       .catch((error) => console.error("Error fetching data:", error));
 
-    fetch("http://localhost:3000/recent_expenses")
-      .then((response) => response.json())
-      .then((data) => setExpenses(data.expenses))
-      .catch((error) => console.error("Error fetching data:", error));
+    adapter.recentExpenses().then(data => {
+      setExpenses(data?.expenses || []);
+    });
   }, []);
 
   function calc_budget_rate(budget_amount: number, expense_total_amount: number): number {
