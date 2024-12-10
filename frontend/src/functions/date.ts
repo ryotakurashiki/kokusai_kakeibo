@@ -17,5 +17,5 @@ export function current_year(): number {
 }
 
 export function current_month(): number {
-  return dayjs().month();
+  return dayjs().month() + 1;
 }

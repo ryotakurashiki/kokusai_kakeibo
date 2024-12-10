@@ -5,11 +5,11 @@ export function get_string_from_date(value: Date, format?: string): string {
 }
 
 export function get_start_of_month(year: number, month: number) {
-  return dayjs().year(year).month(month).startOf('month').toDate();
+  return dayjs().year(year).month(month-1).startOf('month').toDate();
 }
 
 export function get_end_of_month(year: number, month: number) {
-  return dayjs().year(year).month(month).endOf('month').toDate();
+  return dayjs().year(year).month(month-1).endOf('month').toDate();
 }
 
 export function start_of_last_month(): Date {
