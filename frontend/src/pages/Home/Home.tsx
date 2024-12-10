@@ -9,11 +9,11 @@ import { CurrencyAttributes } from '../../../../src/models/currency';
 import { MiddleCategoryAttributes } from '../../../../src/models/middle_category';
 
 interface budgetWithResult {
-  budget_id: number,
-  large_category_name: string,
-  currency_symbol: string,
-  budget_amount: number,
-  expense_total_amount: number
+  budget_id: number;
+  large_category_name: string;
+  currency_symbol: string;
+  budget_amount: number;
+  expense_total_amount: number;
 }
 
 function Home() {
@@ -22,10 +22,9 @@ function Home() {
   const [budgetWithResults, setBudgetWithResults] = useState<budgetWithResult[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/budgets")
-      .then((response) => response.json())
-      .then((data) => setBudgetWithResults(data.budget_with_results))
-      .catch((error) => console.error("Error fetching data:", error));
+    adapter.budgets().then(data=>{
+      setBudgetWithResults(data);
+    });
 
     adapter.recentExpenses().then(data => {
       setExpenses(data?.expenses || []);
