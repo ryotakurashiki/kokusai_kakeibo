@@ -8,6 +8,7 @@ import axios from 'axios';
 import { current_month, current_year } from '../../functions/date';
 import { LargeCategoryAttributes } from '../../../../src/models/large_category';
 import CategorySummary from '../../components/CategorySummary/CategorySummary';
+import * as adapter from '../../api/adapter';
 
 function Summary() {
   const [largeCategories, setLargeCategories] = useState<(LargeCategoryAttributes & { middle_categories: MiddleCategoryAttributes[] })[]>([]);
@@ -16,10 +17,9 @@ function Summary() {
   const [selectedMonth, setSelectedMonth] = useState<number>(current_month());
 
   function refresh_expenses(year: number, month: number) {
-    // ToDo apiリクエストを切り出す
-    axios.get(`http://localhost:3000/expenses?year=${year}&month=${month}`).then((response) => {
-      setExpenses(response.data.expenses);
-    }).catch(error => console.error("expenses fetch error:", error));
+    adapter.expenses(year, month).then(data=>{
+      setExpenses(data.expenses);
+    });
   }
 
   function back_month() {

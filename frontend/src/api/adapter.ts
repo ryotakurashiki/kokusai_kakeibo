@@ -1,5 +1,6 @@
 import { requestApi } from './requestApi';
 import { ResponseRecentExpenses } from '../../../api_types/recent_expenses';
+import { ResponseExpenses } from '../../../api_types/expenses';
 import { ResponseBudgets } from '../../../api_types/budgets';
 /**
  * 最近の支出を取得
@@ -7,6 +8,14 @@ import { ResponseBudgets } from '../../../api_types/budgets';
 export async function recentExpenses() {
   const res = await requestApi<ResponseRecentExpenses>({
     url: '/recent_expenses',
+    method: 'GET',
+  });
+  return res;
+}
+
+export async function expenses(year: number, month: number) {
+  const res = await requestApi<ResponseExpenses>({
+    url: `/expenses?year=${year}&month=${month}`,
     method: 'GET',
   });
   return res;

@@ -23,7 +23,7 @@ function Home() {
 
   useEffect(() => {
     adapter.budgets().then(data=>{
-      setBudgetWithResults(data);
+      setBudgetWithResults(data.budget_with_results);
     });
 
     adapter.recentExpenses().then(data => {
