@@ -8,7 +8,6 @@ import axios from 'axios';
 import { current_month, current_year } from '../../functions/date';
 import { LargeCategoryAttributes } from '../../../../src/models/large_category';
 import CategorySummary from '../../components/CategorySummary/CategorySummary';
-import ExpenseList from '../../components/ExpenseList/ExpenseList';
 
 function Summary() {
   const [largeCategories, setLargeCategories] = useState<(LargeCategoryAttributes & { middle_categories: MiddleCategoryAttributes[] })[]>([]);
