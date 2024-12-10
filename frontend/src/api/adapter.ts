@@ -3,6 +3,7 @@ import { ResponseRecentExpenses } from '../../../api_types/recent_expenses';
 import { ResponseExpenses } from '../../../api_types/expenses';
 import { ResponseBudgets } from '../../../api_types/budgets';
 import { ResponseLargeCategories } from '../../../api_types/large_categories';
+import { ResponseCurrencies } from '../../../api_types/currencies';
 /**
  * 最近の支出を取得
  */
@@ -38,3 +39,10 @@ export async function large_categories() {
   return res;
 }
 
+export async function currencies() {
+  const res = await requestApi<ResponseCurrencies>({
+    url: '/currencies',
+    method: 'GET',
+  });
+  return res;
+}

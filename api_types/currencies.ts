@@ -1,5 +1,5 @@
 import { CurrencyAttributes } from '../src/models/currency';
 
-export type ResponseCurrencies = null | {
+export type ResponseCurrencies = {
   currencies: CurrencyAttributes[],
 }

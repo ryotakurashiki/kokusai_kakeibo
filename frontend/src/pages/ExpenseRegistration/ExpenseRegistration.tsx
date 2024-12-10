@@ -64,11 +64,10 @@ function ExpenseRegistration() {
     adapter.large_categories().then(data=>{
       setLargeCategories(data.large_categories);
     });
-    // ToDo apiリクエストを切り出す
-    axios.get("http://localhost:3000/currencies").then((response) => {
-      setCurrencies(response.data.currencies);
-    }).catch(error => console.error("currencies fetch error:", error));
 
+    adapter.currencies().then(data=>{
+      setCurrencies(data.currencies);
+    });
   }, []);
 
   // large_category_idの変更時にmiddle_categoriesをフィルタリング
