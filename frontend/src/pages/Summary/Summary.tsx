@@ -4,7 +4,6 @@ import './Summary.module.css'
 import { Link } from 'react-router-dom';
 import { MiddleCategoryAttributes } from '../../../../src/models/middle_category';
 import { CurrencyAttributes } from '../../../../src/models/currency';
-import axios from 'axios';
 import { current_month, current_year } from '../../functions/date';
 import { LargeCategoryAttributes } from '../../../../src/models/large_category';
 import CategorySummary from '../../components/CategorySummary/CategorySummary';
@@ -51,11 +50,10 @@ function Summary() {
   }
 
   useEffect(() => {
-    // ToDo apiリクエストを切り出す
-    axios.get("http://localhost:3000/large_categories").then((response) => {
-      setLargeCategories(response.data.large_categories);
-    }).catch(error => console.error("Large categories fetch error:", error));
-    // ToDo apiリクエストを切り出す
+    adapter.large_categories().then(data=>{
+      setLargeCategories(data.large_categories);
+    });
+
     refresh_expenses(selectedYear, selectedMonth);
   }, []);
 

@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/src/yup.js';
 import axios from 'axios';
+import * as adapter from '../../api/adapter';
 import { useEffect, useState } from 'react';
 
 // ToDo: 型定義移す
@@ -60,10 +61,9 @@ function ExpenseRegistration() {
   const [selectedLargeCategory, setSelectedLargeCategory] = useState<(LargeCategory & { middle_categories: MiddleCategory[] })>();
 
   useEffect(() => {
-    // ToDo apiリクエストを切り出す
-    axios.get("http://localhost:3000/large_categories").then((response) => {
-      setLargeCategories(response.data.large_categories);
-    }).catch(error => console.error("Large categories fetch error:", error));
+    adapter.large_categories().then(data=>{
+      setLargeCategories(data.large_categories);
+    });
     // ToDo apiリクエストを切り出す
     axios.get("http://localhost:3000/currencies").then((response) => {
       setCurrencies(response.data.currencies);
