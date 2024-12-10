@@ -50,6 +50,7 @@ function ExpenseRegistration() {
     register,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
@@ -79,7 +80,9 @@ function ExpenseRegistration() {
 
   // フォーム送信
   const onSubmit = (data: FormData) => {
-    adapter.create_expense(data).then();
+    adapter.create_expense(data).then(()=>{
+      reset();
+    });
   };
 
   return (
