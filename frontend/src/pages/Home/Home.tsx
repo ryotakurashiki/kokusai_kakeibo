@@ -1,18 +1,31 @@
 import { useState, useEffect } from 'react'
 import './Home.module.css'
-import type { ResponseHomeData } from '../../../../api_types/home_data';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import { current_days, this_month_days } from '../../functions/date';
 import { Link } from 'react-router-dom';
 
+interface budgetWithResult {
+  budget_id: number,
+  large_category_name: string,
+  currency_symbol: string,
+  budget_amount: number,
+  expense_total_amount: number
+}
+
 function Home() {
-  const [count, setCount] = useState(0)
-  const [data, setData] = useState<ResponseHomeData | null>(null);
+  const [count, setCount] = useState(0);
+  const [expenses, setExpenses] = useState([]);
+  const [budgetWithResults, setBudgetWithResults] = useState<budgetWithResult[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/home_data")
+    fetch("http://localhost:3000/budgets")
       .then((response) => response.json())
-      .then((data: ResponseHomeData) => setData(data))
+      .then((data) => setBudgetWithResults(data.budget_with_results))
+      .catch((error) => console.error("Error fetching data:", error));
+
+    fetch("http://localhost:3000/recent_expenses")
+      .then((response) => response.json())
+      .then((data) => setExpenses(data.expenses))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
@@ -21,7 +34,7 @@ function Home() {
     return Math.floor(estimated_expense_total_amount/budget_amount*100);
   }
 
-  const bugetsResultItems = (data?.budget_with_results || []).map(budget_with_result => {
+  const bugetsResultItems = (budgetWithResults).map(budget_with_result => {
     const rate = calc_budget_rate(budget_with_result.budget_amount, budget_with_result.expense_total_amount);
     return (
       <div key={budget_with_result.budget_id}>
@@ -41,7 +54,7 @@ function Home() {
       <h2>予算状況</h2>
       <div>{bugetsResultItems}</div>
       <h2>最近の支出</h2>
-      <ExpenseList expenses={data?.expenses || []} />
+      <ExpenseList expenses={expenses} />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
