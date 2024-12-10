@@ -3,7 +3,6 @@ import './ExpenseRegistration.module.css'
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/src/yup.js';
-import axios from 'axios';
 import * as adapter from '../../api/adapter';
 import { useEffect, useState } from 'react';
 
@@ -80,11 +79,7 @@ function ExpenseRegistration() {
 
   // フォーム送信
   const onSubmit = (data: FormData) => {
-    // ToDo apiリクエストを切り出す
-    axios
-      .post('http://localhost:3000/create_expense', data)
-      .then(() => alert('登録が成功しました'))
-      .catch((error) => console.error('登録に失敗しました:', error));
+    adapter.create_expense(data).then();
   };
 
   return (
