@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './Home.module.css'
+import './Home.scss'
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import { current_days, this_month_days } from '../../functions/date';
 import { Link } from 'react-router-dom';
@@ -36,25 +36,37 @@ function Home() {
     return Math.floor(estimated_expense_total_amount/budget_amount*100);
   }
 
-  const bugetsResultItems = (budgetWithResults).map(budget_with_result => {
+  const budgetResultItems = (budgetWithResults).map(budget_with_result => {
     const rate = calc_budget_rate(budget_with_result.budget_amount, budget_with_result.expense_total_amount);
     return (
-      <div key={budget_with_result.budget_id}>
-        <div>{ budget_with_result.large_category_name }</div>
-        <div>予算{ budget_with_result.currency_symbol }{ budget_with_result.budget_amount }</div>
-        <div>実績{ budget_with_result.currency_symbol }{ budget_with_result.expense_total_amount }</div>
-        {rate > 100 ? (<div>！このペースだと予算を{budget_with_result.currency_symbol}{budget_with_result.budget_amount*(rate-100)/100}オーバーします</div>) : (<div></div>) }
-      </div>
+      <table key={budget_with_result.budget_id} className="budget_result_item">
+        <tbody>
+          <tr className='category_budget_result'>
+            <td className='category'>{ budget_with_result.large_category_name }</td>
+            <td className='budget_result'>
+              <div className='table_row'>
+                <div className='table_cell'>予算</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.budget_amount }</div>
+              </div>
+              <div className='table_row'>
+                <div className='table_cell'>実績</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.expense_total_amount }</div>
+              </div>
+            </td>
+          </tr>
+          {rate > 100 ? (<tr><td className='budget_alert' colSpan={2}>このペースだと{budget_with_result.currency_symbol}{budget_with_result.budget_amount*(rate-100)/100}オーバーします</td></tr>) : "" }
+        </tbody>
+      </table>
     )
   });
 
   return (
     <>
       <h1>Vite + React</h1>
-      <Link to="/summary">集計</Link>
-      <Link to="/expense_registration">登録</Link>
+      <nav>
+        <Link to="/summary">集計</Link>
+        <Link to="/expense_registration">登録</Link>
+      </nav>
       <h2>予算状況</h2>
-      <div>{bugetsResultItems}</div>
+      <div>{budgetResultItems}</div>
       <h2>最近の支出</h2>
       <ExpenseList expenses={expenses} />
       <div className="card">

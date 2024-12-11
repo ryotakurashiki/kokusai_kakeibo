@@ -1,0 +1,35 @@
+nav a {
+    margin: 0 12px;
+}
+
+table.budget_result_item {
+    display: table;
+    width: 100%;
+    tr.category_budget_result {
+        display: table-row;
+        td.category, td.budget_result {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        td.category {
+            width: 45%;
+            text-align: center;
+        }
+        td.budget_result {
+            width: 55%;
+            text-align: left;
+        }
+        div {
+            vertical-align: middle;
+        }
+        div.amount {
+            text-align: right;
+            padding-left: 20px;
+            font-size: 1.5em;
+        }
+    }
+    tr td.budget_alert {
+        text-align: center;
+        background-color: papayawhip
+    }
+}

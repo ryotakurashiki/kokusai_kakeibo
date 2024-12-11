@@ -3,7 +3,7 @@ import { ExpenseAttributes } from "../../../../src/models/expense";
 import { CurrencyAttributes } from "../../../../src/models/currency";
 import { MiddleCategoryAttributes } from "../../../../src/models/middle_category";
 import { get_string_from_date } from "../../functions/date";
-import './ExpenseList.css'
+import './ExpenseList.scss'
 
 interface ExpenseListProps {
   expenses: (ExpenseAttributes & {
@@ -19,11 +19,11 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
     last_payment_date = expense.payment_date;
     return (
       <>
-        {is_payment_date_changed ? (<tr><td>{get_string_from_date(expense.payment_date, 'YYYY-MM-DD')}</td></tr>) : (<tr></tr>) }
-        <tr key={expense.id} className="expense-list-item" >
+        {is_payment_date_changed ? (<tr className="expense_list_date"><td>{get_string_from_date(expense.payment_date, 'YYYY-MM-DD')}</td></tr>) : (<tr></tr>) }
+        <tr key={expense.id} className="expense_list_item" >
           <td>{expense.middle_category.name}</td>
           <td>{expense.name}</td>
-          <td>{expense.currency.symbol}{expense.amount}</td>
+          <td className="amount">{expense.currency.symbol}{expense.amount}</td>
         </tr>
       </>
     )
