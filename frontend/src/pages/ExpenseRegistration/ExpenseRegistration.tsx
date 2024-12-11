@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import './ExpenseRegistration.module.css'
+import './ExpenseRegistration.scss'
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/src/yup.js';
@@ -92,43 +92,33 @@ function ExpenseRegistration() {
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label>金額</label>
-            <input type="number" {...register('amount')} />
+            { currencies.map(currency=>(
+              <label>
+                <input
+                  {...register("currency_id")}
+                    type="radio"
+                    value={currency.id}
+                />
+                { currency.symbol }
+              </label>
+              ))}
+          </div>
+          <div>
+            <input type="number" placeholder='0' {...register('amount')} />
             {errors.amount && <p>{errors.amount.message}</p>}
           </div>
 
           <div>
-            <label>通貨</label>
-            <select
-              {...register("currency_id", {
-                required: "通貨を選択してください",
-              })}
-              defaultValue=""
-            >
-              <option value="">選択してください</option>
-              {(currencies).map((currency) => (
-                <option key={currency.id} value={currency.id}>
-                  {currency.name}
-                </option>
-              ))}
-            </select>
-            {errors.middle_category_id && <p>{errors.middle_category_id.message}</p>}
-          </div>
-
-          <div>
-            <label>支払日</label>
             <input type="date" {...register('payment_date')} />
             {errors.payment_date && <p>{errors.payment_date.message}</p>}
           </div>
 
           <div>
-            <label>内容</label>
-            <input type="text" {...register('name')} />
+            <input type="text" placeholder='内容を入力' {...register('name')} />
             {errors.name && <p>{errors.name.message}</p>}
           </div>
 
           <div>
-            <label>大カテゴリ</label>
             <select
               {...register("large_category_id", {
                 required: "大カテゴリを選択してください",
@@ -146,7 +136,6 @@ function ExpenseRegistration() {
           </div>
 
           <div>
-            <label>中カテゴリ</label>
             <select
               {...register("middle_category_id", {
                 required: "中カテゴリを選択してください",

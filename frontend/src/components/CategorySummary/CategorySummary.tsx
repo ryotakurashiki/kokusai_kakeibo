@@ -2,7 +2,7 @@ import React from "react";
 import { ExpenseAttributes } from "../../../../src/models/expense";
 import { CurrencyAttributes } from "../../../../src/models/currency";
 import { MiddleCategoryAttributes } from "../../../../src/models/middle_category";
-import './CategorySummary.css'
+import './CategorySummary.scss'
 import { LargeCategoryAttributes } from "../../../../src/models/large_category";
 import CategorySummaryItem from "../CategorySummaryItem/CategorySummaryItem";
 
@@ -45,7 +45,7 @@ const CategorySummary: React.FC<CategorySummaryProps> = ({ large_category, expen
   )
   return (
     <>
-      <table>
+      <table className="category_summary_table">
         <tbody>{ CategorySummaryItems }</tbody>
       </table>
     </>

@@ -1,0 +1,22 @@
+select[name="currency_id"] {
+    width: 3em;
+}
+
+form div {
+    margin-top: 16px;
+    input, select {
+        font-size: 1.2em;
+    }
+    input[name="amount"], input[name="payment_date"], input[name="name"], select[name="large_category_id"], select[name="middle_category_id"] {
+        width: 80%;
+        text-align: right;
+    }
+}
+
+form button {
+    margin-top: 20px;
+}
+
+form label {
+    margin: 0 12px;
+}

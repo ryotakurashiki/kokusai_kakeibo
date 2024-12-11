@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ExpenseAttributes } from '../../../../src/models/expense';
-import './Summary.module.css'
+import './Summary.scss'
 import { Link } from 'react-router-dom';
 import { MiddleCategoryAttributes } from '../../../../src/models/middle_category';
 import { CurrencyAttributes } from '../../../../src/models/currency';
@@ -64,11 +64,15 @@ function Summary() {
   return (
     <>
       <h1>Vite + React</h1>
-      <Link to="/home">ホーム</Link>
-      <Link to="/expense_registration">登録</Link>
+      <nav>
+        <Link to="/home">ホーム</Link>
+        <Link to="/expense_registration">登録</Link>
+      </nav>
       <h2>{selectedYear}年{selectedMonth}月</h2>
-      <button type="button" onClick={back_month}> ← </button>
-      <button type="button" onClick={forward_month}> → </button>
+      <div>
+        <button className='change_month' type="button" onClick={back_month}> ← </button>
+        <button className='change_month' type="button" onClick={forward_month}> → </button>
+      </div>
       {CategorySummaries}
     </>
   )

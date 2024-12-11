@@ -1,5 +1,5 @@
 import React from "react";
-import './CategorySummaryItem.css'
+import './CategorySummaryItem.scss'
 
 
 interface CategorySummaryProps {
@@ -13,8 +13,8 @@ const CategorySummaryItem: React.FC<CategorySummaryProps> = ({ name, amount_objs
   return (
     <>
       <tr>
-        <td>{ name }</td>
-        <td>{ amount_cell_contents }</td>
+        <td className="category_name">{ name }</td>
+        <td className="amount">{ amount_cell_contents }</td>
       </tr>
     </>
   );
