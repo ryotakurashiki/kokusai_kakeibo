@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/src/yup.js';
 import * as adapter from '../../api/adapter';
 import { useEffect, useState } from 'react';
+import { get_string_from_date } from '../../functions/date';
 
 // ToDo: 型定義移す
 type LargeCategory = {
@@ -56,9 +57,11 @@ function ExpenseRegistration() {
     resolver: yupResolver(validationSchema),
   });
 
+  const today_string = get_string_from_date(new Date(), "YYYY-MM-DD");
   const [largeCategories, setLargeCategories] = useState<(LargeCategory & { middle_categories: MiddleCategory[] })[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [defaultCurrencyId, setDefaultCurrencyId] = useState<number>();
+  const [defaultPaymentDate, setDefaultPaymentDate] = useState<string>(today_string);
   const [selectedLargeCategory, setSelectedLargeCategory] = useState<(LargeCategory & { middle_categories: MiddleCategory[] })>();
 
   useEffect(() => {
@@ -87,6 +90,7 @@ function ExpenseRegistration() {
   const onSubmit = (data: FormData) => {
     adapter.create_expense(data).then(()=>{
       setDefaultCurrencyId(data.currency_id);
+      setDefaultPaymentDate(data.payment_date);
       reset();
     });
   };
@@ -116,7 +120,7 @@ function ExpenseRegistration() {
           </div>
 
           <div>
-            <input type="date" {...register('payment_date')} />
+            <input type="date" defaultValue={defaultPaymentDate} {...register('payment_date')} />
             {errors.payment_date && <p>{errors.payment_date.message}</p>}
           </div>
 
