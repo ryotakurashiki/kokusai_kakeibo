@@ -58,9 +58,14 @@ function ExpenseRegistration() {
 
   const [largeCategories, setLargeCategories] = useState<(LargeCategory & { middle_categories: MiddleCategory[] })[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [defaultCurrencyId, setDefaultCurrencyId] = useState<number>();
   const [selectedLargeCategory, setSelectedLargeCategory] = useState<(LargeCategory & { middle_categories: MiddleCategory[] })>();
 
   useEffect(() => {
+    adapter.last_expense().then(data=>{
+      setDefaultCurrencyId(data.expense.currency_id);
+    });
+
     adapter.large_categories().then(data=>{
       setLargeCategories(data.large_categories);
     });
@@ -81,6 +86,7 @@ function ExpenseRegistration() {
   // フォーム送信
   const onSubmit = (data: FormData) => {
     adapter.create_expense(data).then(()=>{
+      setDefaultCurrencyId(data.currency_id);
       reset();
     });
   };
@@ -97,6 +103,7 @@ function ExpenseRegistration() {
                 <input
                   {...register("currency_id")}
                     type="radio"
+                    defaultChecked={currency.id == defaultCurrencyId}
                     value={currency.id}
                 />
                 { currency.symbol }

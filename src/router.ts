@@ -7,6 +7,7 @@ import { create_expense_handler } from './route_handlers/create_expense_handler'
 import { expenses_handler } from './route_handlers/expenses_handler';
 import { recent_expenses_handler } from './route_handlers/recent_expenses_handler';
 import { budgets_handler } from './route_handlers/budgets_handler';
+import { last_expense_handler } from './route_handlers/last_expense_handler';
 
 export const router = express.Router();
 
@@ -22,6 +23,7 @@ router.post('/login', login_handler());
 // API
 router.get('/currencies', api_auth_handler(), currencies_handler());
 router.get('/expenses', api_auth_handler(), expenses_handler());
+router.get('/last_expense', api_auth_handler(), last_expense_handler());
 router.get('/recent_expenses', api_auth_handler(), recent_expenses_handler());
 router.get('/budgets', api_auth_handler(), budgets_handler());
 router.get('/large_categories', api_auth_handler(), large_categories_handler());

@@ -1,6 +1,7 @@
 import { requestApi } from './requestApi';
 import { ResponseRecentExpenses } from '../../../api_types/recent_expenses';
 import { ResponseExpenses } from '../../../api_types/expenses';
+import { ResponseLastExpense } from '../../../api_types/last_expense';
 import { ResponseBudgets } from '../../../api_types/budgets';
 import { ResponseLargeCategories } from '../../../api_types/large_categories';
 import { RequestCreateExpense, ResponseCreateExpense } from '../../../api_types/create_expense';
@@ -19,6 +20,14 @@ export async function recentExpenses() {
 export async function expenses(year: number, month: number) {
   const res = await requestApi<ResponseExpenses>({
     url: `/expenses?year=${year}&month=${month}`,
+    method: 'GET',
+  });
+  return res;
+}
+
+export async function last_expense() {
+  const res = await requestApi<ResponseLastExpense>({
+    url: `/last_expense`,
     method: 'GET',
   });
   return res;

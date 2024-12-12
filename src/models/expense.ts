@@ -99,6 +99,13 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
               ]
             };
           },
+          order_newly_created() {
+            return {
+              order: [
+                ['id', 'DESC']
+              ]
+            };
+          },
           recent() {
             return {
               where: {
