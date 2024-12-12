@@ -60,7 +60,7 @@ function Home() {
 
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1>ホーム</h1>
       <nav>
         <Link to="/summary">集計</Link>
         <Link to="/expense_registration">登録</Link>
