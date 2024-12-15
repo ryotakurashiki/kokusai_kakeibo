@@ -63,7 +63,7 @@ function Summary() {
 
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1>集計</h1>
       <nav>
         <Link to="/home">ホーム</Link>
         <Link to="/expense_registration">登録</Link>
