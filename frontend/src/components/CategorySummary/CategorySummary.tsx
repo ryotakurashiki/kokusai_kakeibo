@@ -16,11 +16,11 @@ interface CategorySummaryProps {
 
 const CategorySummary: React.FC<CategorySummaryProps> = ({ large_category, expenses }) => {
   const results = [];
-  const large_category_amount_objs: { currency_symbol: string, amount: number }[] = [];
-  results.push({ name: large_category.name, amount_objs: large_category_amount_objs });
+  const large_category_amount_objs: { currency_symbol: string, amount: number, large_category: LargeCategoryAttributes, is_large_category: boolean }[] = [];
+  results.push({ name: large_category.name, large_category: large_category, is_large_category: true, amount_objs: large_category_amount_objs });
   large_category.middle_categories.forEach(middle_category=>{
-    let middle_category_amount_objs: { currency_symbol: string, amount: number }[] = [];
-    results.push({ name: middle_category.name, amount_objs: middle_category_amount_objs });
+    let middle_category_amount_objs: { currency_symbol: string, amount: number, large_category: LargeCategoryAttributes, is_large_category: boolean }[] = [];
+    results.push({ name: middle_category.name, large_category: large_category, is_large_category: false, amount_objs: middle_category_amount_objs });
     expenses
       .filter(expense=> expense.middle_category_id == middle_category.id)
       .forEach(expense=> {
@@ -28,20 +28,20 @@ const CategorySummary: React.FC<CategorySummaryProps> = ({ large_category, expen
         if (m_obj) {
           m_obj.amount += expense.amount;
         } else {
-          middle_category_amount_objs.push({ currency_symbol: expense.currency.symbol, amount: expense.amount });
+          middle_category_amount_objs.push({ currency_symbol: expense.currency.symbol, large_category: large_category, is_large_category: false, amount: expense.amount });
         }
 
         const l_obj = large_category_amount_objs.find(obj => obj.currency_symbol == expense.currency.symbol);
         if (l_obj) {
           l_obj.amount += expense.amount;
         } else {
-          large_category_amount_objs.push({ currency_symbol: expense.currency.symbol, amount: expense.amount });
+          large_category_amount_objs.push({ currency_symbol: expense.currency.symbol, large_category: large_category, is_large_category: true, amount: expense.amount });
         }
       });
   });
 
   const CategorySummaryItems = results.map(result=>
-    <CategorySummaryItem name={result.name} amount_objs={result.amount_objs} />
+    <CategorySummaryItem name={result.name} amount_objs={result.amount_objs} large_category={result.large_category} is_large_category={result.is_large_category} />
   )
   return (
     <>
