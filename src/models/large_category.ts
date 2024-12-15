@@ -4,6 +4,7 @@ import MiddleCategory from "./middle_category";
 export interface LargeCategoryAttributes {
   id: number;
   name: string;
+  icon: string;
   color: string;
   created_at: Date;
   updated_at: Date;
@@ -14,6 +15,7 @@ interface LargeCategoryCreationAttributes extends Optional<LargeCategoryAttribut
 export default class LargeCategory extends Model<LargeCategoryAttributes, LargeCategoryCreationAttributes> implements LargeCategoryAttributes {
   public id!: number;
   public name!: string;
+  public icon!: string;
   public color!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
@@ -28,6 +30,10 @@ export default class LargeCategory extends Model<LargeCategoryAttributes, LargeC
           primaryKey: true,
         },
         name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        icon: {
           type: DataTypes.STRING,
           allowNull: false,
         },
