@@ -7,6 +7,7 @@ import * as adapter from '../../api/adapter';
 import { ExpenseAttributes } from '../../../../src/models/expense';
 import { CurrencyAttributes } from '../../../../src/models/currency';
 import { MiddleCategoryAttributes } from '../../../../src/models/middle_category';
+import { LargeCategoryAttributes } from '../../../../src/models/large_category';
 
 interface budgetWithResult {
   budget_id: number;
@@ -18,7 +19,9 @@ interface budgetWithResult {
 
 function Home() {
   const [count, setCount] = useState(0);
-  const [expenses, setExpenses] = useState<(ExpenseAttributes & { currency: CurrencyAttributes, middle_category: MiddleCategoryAttributes })[]>([]);
+  const [expenses, setExpenses] = useState<(ExpenseAttributes & {
+    currency: CurrencyAttributes, middle_category: (MiddleCategoryAttributes & {large_category: LargeCategoryAttributes})
+  })[]>([]);
   const [budgetWithResults, setBudgetWithResults] = useState<budgetWithResult[]>([]);
 
   useEffect(() => {

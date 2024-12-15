@@ -3,6 +3,7 @@ import Kakeibo from "./kakeibo";
 import MiddleCategory from "./middle_category";
 import Currency from "./currency";
 import { start_of_last_month } from "../common/date";
+import LargeCategory from "./large_category";
 
 export interface ExpenseAttributes {
   id: number;
@@ -81,7 +82,11 @@ export default class Expense extends Model<ExpenseAttributes, ExpenseCreationAtt
             return { include: [Currency] };
           },
           with_category() {
-            return { include: [MiddleCategory] };
+            return {
+              include: [{
+                model: MiddleCategory, include: [ LargeCategory ]
+              }]
+            };
           },
           order_newly_paid() {
             return {
