@@ -18,7 +18,6 @@ interface budgetWithResult {
 }
 
 function Home() {
-  const [count, setCount] = useState(0);
   const [expenses, setExpenses] = useState<(ExpenseAttributes & {
     currency: CurrencyAttributes, middle_category: (MiddleCategoryAttributes & {large_category: LargeCategoryAttributes})
   })[]>([]);
@@ -72,17 +71,6 @@ function Home() {
       <div>{budgetResultItems}</div>
       <h2>最近の支出</h2>
       <ExpenseList expenses={expenses} />
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
