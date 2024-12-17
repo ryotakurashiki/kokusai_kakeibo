@@ -12,7 +12,7 @@ interface CategorySummaryProps {
 
 const CategorySummaryItem: React.FC<CategorySummaryProps> = ({ name, amount_objs, large_category, is_large_category }) => {
 
-  const amount_cell_contents = amount_objs.map(obj=> <p>{obj.currency_symbol}{obj.amount}</p>);
+  const amount_cell_contents = amount_objs.map(obj=> <p>{obj.currency_symbol}{obj.amount.toLocaleString()}</p>);
   return (
     <>
       <tr>

@@ -137,7 +137,7 @@ export default class Budget extends Model<BudgetAttributes, BudgetCreationAttrib
       currency_id: budget.currency.id,
       currency_symbol: budget.currency.symbol,
       budget_amount: budget.amount,
-      expense_total_amount: total_expenses.find(total_expense=> total_expense.large_category_id == budget.large_category_id && total_expense.currency_id == budget.currency_id )?.total_expense_amount || 0
+      expense_total_amount: Number(total_expenses.find(total_expense=> total_expense.large_category_id == budget.large_category_id && total_expense.currency_id == budget.currency_id )?.total_expense_amount) || 0
     }));
   }
 }

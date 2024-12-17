@@ -26,7 +26,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
         <tr key={expense.id} className="expense_list_item" >
           <td><img src={"category_icons/"+expense.middle_category.large_category.icon} className="category_icon" alt="category_icon" /></td>
           <td className="name">{expense.name}</td>
-          <td className="amount">{expense.currency.symbol}{expense.amount}</td>
+          <td className="amount">{expense.currency.symbol}{expense.amount.toLocaleString()}</td>
         </tr>
       </>
     )

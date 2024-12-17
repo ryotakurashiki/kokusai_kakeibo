@@ -47,14 +47,14 @@ function Home() {
             <td className='category'>{ budget_with_result.large_category_name }</td>
             <td className='budget_result'>
               <div className='table_row'>
-                <div className='table_cell'>予算</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.budget_amount }</div>
+                <div className='table_cell'>予算</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.budget_amount.toLocaleString() }</div>
               </div>
               <div className='table_row'>
-                <div className='table_cell'>実績</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.expense_total_amount }</div>
+                <div className='table_cell'>実績</div><div className='table_cell amount'>  { budget_with_result.currency_symbol }{ budget_with_result.expense_total_amount.toLocaleString() }</div>
               </div>
             </td>
           </tr>
-          {rate > 100 ? (<tr><td className='budget_alert' colSpan={2}>このペースだと{budget_with_result.currency_symbol}{budget_with_result.budget_amount*(rate-100)/100}オーバーします</td></tr>) : "" }
+          {rate > 100 ? (<tr><td className='budget_alert' colSpan={2}>このペースだと{budget_with_result.currency_symbol}{(budget_with_result.budget_amount*(rate-100)/100).toLocaleString()}オーバーします</td></tr>) : "" }
         </tbody>
       </table>
     )
